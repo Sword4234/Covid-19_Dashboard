@@ -35,7 +35,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Visual Models:** Geospatial Chloropleth Map, Ranked Horizontal Bar Charts, Dual-Axis Policy vs. Mobility Timelines.
 
 <!-- Replace the path below with your uploaded image -->
-![Global Spread & Containment](assets/screenshots/dashboard-1.png)
+![Global Spread & Containment](<img width="1279" height="779" alt="image" src="https://github.com/user-attachments/assets/ee253ea9-259b-4018-b917-3a89ee0b46e3" />
+)
 
 ---
 
@@ -45,7 +46,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Key Metrics:** Oxford Stringency Index (0–100), School & Workplace Closures, Public Event Cancellations.
 - **Visual Models:** Comparative Temporal Area Charts, Multi-Country Strictness Indices.
 
-![Response Stringency](assets/screenshots/dashboard-2.png)
+![Response Stringency](<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/7c6323e1-4998-426e-b495-9e16965262fa" />
+)
 
 ---
 
@@ -55,7 +57,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Key Metrics:** Doses Administered per 100 People, Fully Vaccinated Population Share, Rolling 7-Day Vaccination Averages.
 - **Visual Models:** Uptake S-Curves, Geographic Penetration Heatmaps.
 
-![Vaccine Rollout](assets/screenshots/dashboard-3.png)
+![Vaccine Rollout](<img width="1280" height="799" alt="image" src="https://github.com/user-attachments/assets/ca9bf5a3-15bc-4d58-9cfd-b52926270073" />
+)
 
 ---
 
@@ -65,7 +68,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Key Metrics:** Mobility Percent Variance (Transit, Retail/Recreation, Workplace, Residential), Policy Stringency Tiers.
 - **Visual Models:** Sankey Flow Escalation Cascades, Statistical Box-and-Whisker Dispersion, Parallel Coordinate Trajectories.
 
-![Stringency & Public Mobility](assets/screenshots/dashboard-4.png)
+![Stringency & Public Mobility](<img width="1280" height="800" alt="image" src="https://github.com/user-attachments/assets/f17ca185-ab29-4d49-ad5d-5125a30c90dc" />
+)
 
 ---
 
@@ -75,7 +79,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Key Metrics:** GDP per Capita, Hospital Beds per 1,000 People, Age Demographic Distributions.
 - **Visual Models:** Correlation Scatter Plots, Multi-Variable Regression Clusters.
 
-![Socio-Economic Factors](assets/screenshots/dashboard-5.png)
+![Socio-Economic Factors](<img width="1280" height="781" alt="image" src="https://github.com/user-attachments/assets/9983ee68-56c9-4d3e-be39-996e09ab3bc3" />
+)
 
 ---
 
@@ -85,7 +90,8 @@ This dashboard synthesizes global policy timelines against clinical transmission
 - **Key Metrics:** ICU Capacity Utilization, Excess Mortality, Case Fatality Ratio (CFR).
 - **Visual Models:** Capacity Threshold Bullet Graphs, Longitudinal Fatality Trajectories.
 
-![Clinical Burden & Mortality](assets/screenshots/dashboard-6.png)
+![Clinical Burden & Mortality](<img width="1280" height="777" alt="image" src="https://github.com/user-attachments/assets/1da30437-2f09-47d1-8212-4cc6f99e6ef5" />
+)
 
 ---
 
