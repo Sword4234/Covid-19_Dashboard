@@ -20,7 +20,7 @@
             height: 100vh;
             overflow: hidden;
         }
-        /* Custom Large Top Navigation Bar */
+        /* Navigation header bar */
         #tabNav {
             display: flex;
             flex-wrap: wrap;
@@ -66,24 +66,24 @@
 </head>
 <body>
 
-    <!-- Large Emoji Navigation Buttons -->
+    <!-- Tab navigation indexed 0 to 5 -->
     <nav id="tabNav">
-        <button class="tab-btn active" onclick="switchDashboard('D1-GlobalPathogenDispersionContainmentPolicyDynamics', this)">
+        <button class="tab-btn active" onclick="switchDashboardByIndex(0, this)">
             🌍🛡️ Global Spread & Containment
         </button>
-        <button class="tab-btn" onclick="switchDashboard('D2-ResponseStringency', this)">
+        <button class="tab-btn" onclick="switchDashboardByIndex(1, this)">
             📋🏛️ Response Stringency
         </button>
-        <button class="tab-btn" onclick="switchDashboard('D3-VaccineRollout', this)">
+        <button class="tab-btn" onclick="switchDashboardByIndex(2, this)">
             💉🚀 Vaccine Rollout
         </button>
-        <button class="tab-btn" onclick="switchDashboard('D4-PolicyDynamicsStringencyPublicMobility', this)">
+        <button class="tab-btn" onclick="switchDashboardByIndex(3, this)">
             🔒🚶 Stringency & Public Mobility
         </button>
-        <button class="tab-btn" onclick="switchDashboard('D5-SocioEconomicDeterminants', this)">
+        <button class="tab-btn" onclick="switchDashboardByIndex(4, this)">
             👥💰 Socio-Economic Factors
         </button>
-        <button class="tab-btn" onclick="switchDashboard('D6-ClinicalBurden', this)">
+        <button class="tab-btn" onclick="switchDashboardByIndex(5, this)">
             🏥💔 Clinical Burden & Mortality
         </button>
     </nav>
@@ -93,16 +93,22 @@
 
     <script type="text/javascript">
         let viz;
+        let isVizReady = false;
+        let publishedSheets = [];
         const containerDiv = document.getElementById("vizContainer");
         const vizUrl = "https://public.tableau.com/views/COVID19DashboardBasedOnGovernmentStringency/D1-GlobalPathogenDispersionContainmentPolicyDynamics";
 
         const options = {
-            hideTabs: true,         // Suppresses Tableau's tiny native tab bar
+            hideTabs: true,         // Removes Tableau's small default tab strip
             hideToolbar: false,     // Retains the bottom export/share toolbar
             width: "100%",
             height: "100%",
             onFirstInteractive: function () {
-                console.log("Tableau visualization loaded successfully.");
+                const workbook = viz.getWorkbook();
+                // Query all sheets exactly as they are published in the workbook
+                publishedSheets = workbook.getPublishedSheetsInfo();
+                isVizReady = true;
+                console.log("Published sheets recognized by Tableau:", publishedSheets.map(s => s.getName()));
             }
         };
 
@@ -110,16 +116,27 @@
             viz = new tableau.Viz(containerDiv, vizUrl, options);
         }
 
-        function switchDashboard(sheetName, buttonElement) {
-            if (!viz) return;
+        function switchDashboardByIndex(index, buttonElement) {
+            if (!isVizReady || !viz) {
+                console.warn("Tableau visualization is still loading...");
+                return;
+            }
 
-            viz.getWorkbook().activateSheetAsync(sheetName)
+            if (!publishedSheets || !publishedSheets[index]) {
+                console.error("No sheet found at tab index:", index);
+                return;
+            }
+
+            // Retrieve the exact sheet title string from Tableau's internal metadata
+            const targetSheetName = publishedSheets[index].getName();
+
+            viz.getWorkbook().activateSheetAsync(targetSheetName)
                 .then(() => {
                     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
                     buttonElement.classList.add('active');
                 })
                 .catch((err) => {
-                    console.error("Tab switch failed. Verify sheet name:", sheetName, err);
+                    console.error("Tab switch failed for sheet:", targetSheetName, err);
                 });
         }
 
