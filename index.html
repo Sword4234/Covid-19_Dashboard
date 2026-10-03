@@ -20,7 +20,7 @@
             height: 100vh;
             overflow: hidden;
         }
-        /* Prominent navigation header */
+        /* Custom Large Top Navigation Bar */
         #tabNav {
             display: flex;
             flex-wrap: wrap;
@@ -32,9 +32,11 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
-        /* Tab buttons */
         .tab-btn {
-            padding: 10px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
             font-size: 14px;
             font-weight: 600;
             color: #334155;
@@ -43,6 +45,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s ease-in-out;
+            white-space: nowrap;
         }
         .tab-btn:hover {
             background-color: #e2e8f0;
@@ -63,25 +66,43 @@
 </head>
 <body>
 
-    <!-- Large Navigation Tabs -->
-    <nav id="tabNav"></nav>
+    <!-- Large Emoji Navigation Buttons -->
+    <nav id="tabNav">
+        <button class="tab-btn active" onclick="switchDashboard('D1-GlobalPathogenDispersionContainmentPolicyDynamics', this)">
+            🌍🛡️ Global Spread & Containment
+        </button>
+        <button class="tab-btn" onclick="switchDashboard('D2-ResponseStringency', this)">
+            📋🏛️ Response Stringency
+        </button>
+        <button class="tab-btn" onclick="switchDashboard('D3-VaccineRollout', this)">
+            💉🚀 Vaccine Rollout
+        </button>
+        <button class="tab-btn" onclick="switchDashboard('D4-PolicyDynamicsStringencyPublicMobility', this)">
+            🔒🚶 Stringency & Public Mobility
+        </button>
+        <button class="tab-btn" onclick="switchDashboard('D5-SocioEconomicDeterminants', this)">
+            👥💰 Socio-Economic Factors
+        </button>
+        <button class="tab-btn" onclick="switchDashboard('D6-ClinicalBurden', this)">
+            🏥💔 Clinical Burden & Mortality
+        </button>
+    </nav>
 
-    <!-- Dashboard Container -->
+    <!-- Embedded Dashboard Container -->
     <div id="vizContainer"></div>
 
     <script type="text/javascript">
         let viz;
         const containerDiv = document.getElementById("vizContainer");
-        const navContainer = document.getElementById("tabNav");
         const vizUrl = "https://public.tableau.com/views/COVID19DashboardBasedOnGovernmentStringency/D1-GlobalPathogenDispersionContainmentPolicyDynamics";
 
         const options = {
             hideTabs: true,         // Suppresses Tableau's tiny native tab bar
-            hideToolbar: false,     // Keeps the bottom export/share toolbar
+            hideToolbar: false,     // Retains the bottom export/share toolbar
             width: "100%",
             height: "100%",
             onFirstInteractive: function () {
-                buildNavigationTabs();
+                console.log("Tableau visualization loaded successfully.");
             }
         };
 
@@ -89,25 +110,17 @@
             viz = new tableau.Viz(containerDiv, vizUrl, options);
         }
 
-        function buildNavigationTabs() {
-            const workbook = viz.getWorkbook();
-            const sheets = workbook.getPublishedSheetsInfo();
-            navContainer.innerHTML = "";
+        function switchDashboard(sheetName, buttonElement) {
+            if (!viz) return;
 
-            sheets.forEach((sheet) => {
-                const btn = document.createElement("button");
-                btn.className = "tab-btn" + (sheet.getIsActive() ? " active" : "");
-                btn.textContent = sheet.getName();
-
-                btn.addEventListener("click", () => {
-                    workbook.activateSheetAsync(sheet.getName()).then(() => {
-                        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-                        btn.classList.add("active");
-                    });
+            viz.getWorkbook().activateSheetAsync(sheetName)
+                .then(() => {
+                    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                    buttonElement.classList.add('active');
+                })
+                .catch((err) => {
+                    console.error("Tab switch failed. Verify sheet name:", sheetName, err);
                 });
-
-                navContainer.appendChild(btn);
-            });
         }
 
         window.addEventListener("DOMContentLoaded", initViz);
