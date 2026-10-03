@@ -2,12 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Interactive Tableau Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Dashboard</title>
+    <!-- Tableau JavaScript API -->
+    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Large, readable navigation bar */
+        #tabNav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dce1e7;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+        /* Tab button styling */
+        .tab-btn {
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+        .tab-btn:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+        }
+        #vizContainer {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 65px);
+        }
+    </style>
 </head>
 <body>
 
-    <div class='tableauPlaceholder' id='viz1791044389570' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CO&#47;COVID19DashboardBasedOnGovernmentStringency&#47;D1-GlobalPathogenDispersionContainmentPolicyDynamics&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='COVID19DashboardBasedOnGovernmentStringency&#47;D1-GlobalPathogenDispersionContainmentPolicyDynamics' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;CO&#47;COVID19DashboardBasedOnGovernmentStringency&#47;D1-GlobalPathogenDispersionContainmentPolicyDynamics&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1791044389570');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1350px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-    
+    <!-- Dynamic Custom Tab Bar -->
+    <nav id="tabNav"></nav>
+
+    <!-- Tableau Visualization Container -->
+    <div id="vizContainer"></div>
+
+    <script type="text/javascript">
+        let viz;
+        const containerDiv = document.getElementById("vizContainer");
+        const navContainer = document.getElementById("tabNav");
+        const vizUrl = "https://public.tableau.com/views/COVID19DashboardBasedOnGovernmentStringency/D1-GlobalPathogenDispersionContainmentPolicyDynamics";
+
+        const options = {
+            hideTabs: true,         // Removes the tiny native top tab strip
+            hideToolbar: false,     // Keeps the bottom toolbar (export, share, full screen)
+            width: "100%",
+            height: "100%",
+            onFirstInteractive: function () {
+                buildNavigationTabs();
+            }
+        };
+
+        function initViz() {
+            viz = new tableau.Viz(containerDiv, vizUrl, options);
+        }
+
+        // Automatically queries all published sheets in your workbook and builds the buttons
+        function buildNavigationTabs() {
+            const workbook = viz.getWorkbook();
+            const sheets = workbook.getPublishedSheetsInfo();
+            navContainer.innerHTML = "";
+
+            sheets.forEach((sheet) => {
+                const btn = document.createElement("button");
+                btn.className = "tab-btn" + (sheet.getIsActive() ? " active" : "");
+                btn.textContent = sheet.getName();
+
+                btn.addEventListener("click", () => {
+                    workbook.activateSheetAsync(sheet.getName()).then(() => {
+                        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+                        btn.classList.add("active");
+                    });
+                });
+
+                navContainer.appendChild(btn);
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", initViz);
+    </script>
+
 </body>
 </html>
-
