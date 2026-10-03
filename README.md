@@ -2,7 +2,7 @@
 
 An interactive analytics suite examining the intersection of government policy interventions, public compliance, vaccination velocity, and clinical healthcare burdens during the COVID-19 pandemic. Built with **Tableau** and integrated into a custom **JavaScript API** web application deployed via **GitHub Pages**.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-2563eb?style=for-the-badge&logo=github)](https://sword4234.github.io/Covid-19_Dashboard/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-2563eb?style=for-the-badge&logo=github)](https://yashd-dev411.github.io/Covid-19_Dashboard/)
 [![Tableau Public](https://img.shields.io/badge/Tableau_Public-E97627?style=for-the-badge&logo=tableau&logoColor=white)](https://public.tableau.com/views/COVID19DashboardBasedOnGovernmentStringency/D1-GlobalPathogenDispersionContainmentPolicyDynamics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
@@ -11,7 +11,7 @@ An interactive analytics suite examining the intersection of government policy i
 ## 📌 Live Demo
 
 Access the interactive web portal here:  
-👉 **[COVID-19 Analytics Dashboard Live Web App](https://sword4234.github.io/Covid-19_Dashboard/)**
+👉 **[COVID-19 Analytics Dashboard Live Web App](https://yashd-dev411.github.io/Covid-19_Dashboard/)**
 
 ---
 
