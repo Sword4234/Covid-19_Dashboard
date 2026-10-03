@@ -20,7 +20,7 @@
             height: 100vh;
             overflow: hidden;
         }
-        /* Large, readable navigation bar */
+        /* Prominent navigation header */
         #tabNav {
             display: flex;
             flex-wrap: wrap;
@@ -32,7 +32,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
-        /* Tab button styling */
+        /* Tab buttons */
         .tab-btn {
             padding: 10px 18px;
             font-size: 14px;
@@ -63,10 +63,10 @@
 </head>
 <body>
 
-    <!-- Dynamic Custom Tab Bar -->
+    <!-- Large Navigation Tabs -->
     <nav id="tabNav"></nav>
 
-    <!-- Tableau Visualization Container -->
+    <!-- Dashboard Container -->
     <div id="vizContainer"></div>
 
     <script type="text/javascript">
@@ -76,8 +76,8 @@
         const vizUrl = "https://public.tableau.com/views/COVID19DashboardBasedOnGovernmentStringency/D1-GlobalPathogenDispersionContainmentPolicyDynamics";
 
         const options = {
-            hideTabs: true,         // Removes the tiny native top tab strip
-            hideToolbar: false,     // Keeps the bottom toolbar (export, share, full screen)
+            hideTabs: true,         // Suppresses Tableau's tiny native tab bar
+            hideToolbar: false,     // Keeps the bottom export/share toolbar
             width: "100%",
             height: "100%",
             onFirstInteractive: function () {
@@ -89,7 +89,6 @@
             viz = new tableau.Viz(containerDiv, vizUrl, options);
         }
 
-        // Automatically queries all published sheets in your workbook and builds the buttons
         function buildNavigationTabs() {
             const workbook = viz.getWorkbook();
             const sheets = workbook.getPublishedSheetsInfo();
